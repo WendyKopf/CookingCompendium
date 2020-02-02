@@ -1,23 +1,19 @@
 import sqlite3
+from contextlib import closing
 
 def insertIntoDatabase():
-  try:
-    sqliteConnection = sqlite3.connect('Recipes.db')
-    cursor = sqliteConnection.cursor()
+  with closing(sqlite3.connect("Recipes.db")) as sqliteConnection:
     print ("Connected to SQLite")
+    with closing(sqliteConnection.cursor()) as cursor:
 
-    sqlite_insert_query = """INSERT INTO Recipe 
-                        (id, name, description, ingredients, instructions, category)
-                        VALUES ('testRecipe', 'testName', 'testDescription', 'testIngredients', 'testInstructions', 'testCategory');"""
-    cursor.execute(sqlite_insert_query)
+      sqlite_insert_query = """INSERT INTO Recipe 
+                          (id, name, description, ingredients, instructions, category)
+                          VALUES ('testRecipe', 'testName', 'testDescription', 'testIngredients', 'testInstructions', 'testCategory');"""
+      cursor.execute(sqlite_insert_query)
 
-    sqliteConnection.commit()
-    cursor.close()
+      sqliteConnection.commit()
+      cursor.close()
 
-  except sqlite3.Error as error:
-    print("Error while working with SQLite", error)
-  finally:
-    if (sqliteConnection):
       print("Total Rows affected since the database connection was opened:" , sqliteConnection.total_changes)
-      sqliteConnection.close()
-      print("sqlite connection is closed")
+
+insertIntoDatabase()
