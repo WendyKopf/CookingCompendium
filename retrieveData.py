@@ -28,5 +28,3 @@ def readSqliteTable():
   	if (sqliteConnection):
   		sqliteConnection.close()
   		print("The SQLite connection is closed")
-
-readSqliteTable()
