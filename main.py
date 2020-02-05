@@ -9,8 +9,11 @@ import sys
 if __name__ == "__main__":
   if (not os.path.exists("Recipes.db")):
     createDb()
-  with open(sys.argv[1]) as f:
-    newRecipe = json.load(f)
-    print (newRecipe)
-  insertIntoDatabase(**newRecipe)
-  readSqliteTable()
+  if (sys.argv[1] == 'insert'):
+    with open(sys.argv[2]) as f:
+      newRecipe = json.load(f)
+      insertIntoDatabase(**newRecipe)
+  elif (sys.argv[1] == 'select'):
+    selectType = sys.argv[2]
+    userCategory = sys.argv[3]
+    readSqliteTable(selectType, userCategory)
