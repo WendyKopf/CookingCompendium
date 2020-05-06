@@ -10,7 +10,7 @@ def index():
 # Route for handling the login page logic
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-	return render_template('login.html')
+	return render_template('user.html')
 	
 @app.route('/user/<name>')
 def user(name):
