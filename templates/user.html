@@ -1,5 +1,66 @@
-<h1>Hello, {{name}} !</h1>
-<div class="topnav">
-  <a class="active" href="/">Home</a>
+<head>
+  <title>Hello, {{name}} !</title>
+  <link rel="stylesheet" href="/static/master.css">
+</head>
+<body>
+<h1> Your Weekly Schedule </h1>	
+<div class="tabs">
+  <div class="tabs__sidebar">
+  	<button class="tabs__button" data-for-tab="1">Tab #1</button>
+  	<button class="tabs__button" data-for-tab="2">Tab #2</button>
+  	<button class="tabs__button" data-for-tab="3">Tab #3</button>
+  </div>
+  <div class ="tabs__content" data-tab ="1">
+  	<h2> Tab #1 </h2>
+  	<p>
+  		La la la 1
+  	</p>
+  </div>
+  <div class ="tabs__content" data-tab ="2">
+  	<h2> Tab #2 </h2>
+  	<p>
+  		La la la 2
+  	</p>
+  </div>
+  <div class ="tabs__content" data-tab ="3">
+  	<h2> Tab #3 </h2>
+  	<p>
+  		La la la 3
+  	</p>
+  </div>
+
 </div>
 
+<script>
+  function setupTabs()
+  {
+  	document.querySelectorAll(".tabs__button").forEach(button => {
+  		button.addEventListener("click", () => {
+           const sideBar = button.parentElement;
+           const tabsContainer = sideBar.parentElement;
+           const tabsNumber = button.dataset.forTab;
+           const tabsToActivate = tabsContainer.querySelector(`.tabs__content[data-tab="${tabsNumber}"]`);
+
+           sideBar.querySelectorAll(".tabs__button").forEach(button => {
+           	  button.classList.remove("tabs__button--active");
+
+           });
+
+           tabsContainer.querySelectorAll(".tabs__content").forEach(tab => {
+           	  tab.classList.remove("tabs__content--active");
+
+           });
+
+           button.classList.add("tabs__button--active");
+           tabsToActivate.classList.add("tabs__content--active");
+  		});
+  	});
+  }
+  document.addEventListener("DOMContentLoaded", () => {
+  	setupTabs();
+  document.querySelectorAll(".tabs").forEach(tabsContainer => {
+  	tabsContainer.querySelector(".tabs__sidebar .tabs__button").click();
+  })	
+  });
+</script>
+</body>
